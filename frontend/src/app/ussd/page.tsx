@@ -106,7 +106,7 @@ Select Doctor Specialization:
       content: `Emergency Contacts
 
 24/7 Emergency Hotline:
-+1-800-HEALTH
++232 44 444 419
 
 Local Emergency:
 911
@@ -138,7 +138,7 @@ Press 1 or 2 for details
 
 To complete registration, please:
 1. Visit our website
-2. Call +1-800-HEALTH
+2. Call +232 44 444 419
 3. Visit nearest clinic
 
 Registration requires:
@@ -162,7 +162,7 @@ Registration requires:
 • Avoid alcohol & smoking
 
 For more info, call:
-+1-800-HEALTH
++232 44 444 419
 
 0. Back to Health Tips`,
       options: ['0']
@@ -191,7 +191,7 @@ Type: Video Consultation
 Status: Confirmed
 
 To reschedule, call:
-+1-800-HEALTH
++232 44 444 419
 
 0. Back to Appointments`,
       options: ['0']
@@ -349,7 +349,7 @@ To reschedule, call:
           case '3':
           case '4':
           case '5':
-            setDisplayText('Content coming soon. Call +1-800-HEALTH for more info.');
+            setDisplayText('Content coming soon. Call +232 44 444 419 for more info.');
             setTimeout(() => setDisplayText(''), 3000);
             break;
           case '0':
@@ -377,7 +377,7 @@ To reschedule, call:
         if (value === '0') {
           setCurrentScreen('main');
         } else {
-          setDisplayText('Booking appointment...\nPlease call +1-800-HEALTH\nto complete booking.');
+          setDisplayText('Booking appointment...\nPlease call +232 44 444 419\nto complete booking.');
           setTimeout(() => {
             setCurrentScreen('main');
             setDisplayText('');

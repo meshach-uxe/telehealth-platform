@@ -218,7 +218,7 @@ export default function Home() {
             <div>
               <h6 className="font-semibold mb-4">Emergency Contact</h6>
               <p className="text-gray-400 mb-2">24/7 Emergency Hotline:</p>
-              <p className="text-pink-400 font-semibold text-lg">+1-800-HEALTH</p>
+              <p className="text-pink-400 font-semibold text-lg">+232 44 444 419</p>
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">

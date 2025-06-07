@@ -76,7 +76,7 @@ router.post('/session', (req, res) => {
               session.data.service = 'health_tips';
               break;
             case '3':
-              response = `END Emergency Contacts\n\n24/7 Emergency Hotline:\n+1-800-HEALTH\n\nLocal Emergency:\n911\n\nWomen's Health Crisis:\n+1-800-WOMEN`;
+              response = `END Emergency Contacts\n\n24/7 Emergency Hotline:\n+232 44 444 419\n\nLocal Emergency:\n911\n\nWomen's Health Crisis:\n+1-800-WOMEN`;
               delete sessions[sessionId]; // End session
               break;
             case '4':
@@ -85,7 +85,7 @@ router.post('/session', (req, res) => {
               session.data.service = 'check_appointments';
               break;
             case '5':
-              response = `END New User Registration\n\nTo complete registration, please:\n1. Visit our website\n2. Call +1-800-HEALTH\n3. Visit nearest clinic\n\nRegistration requires:\n- Full Name\n- Phone Number\n- Location\n- Emergency Contact`;
+              response = `END New User Registration\n\nTo complete registration, please:\n1. Visit our website\n2. Call +232 44 444 419\n3. Visit nearest clinic\n\nRegistration requires:\n- Full Name\n- Phone Number\n- Location\n- Emergency Contact`;
               delete sessions[sessionId]; // End session
               break;
             case '0':
@@ -103,7 +103,7 @@ router.post('/session', (req, res) => {
           if (session.data.service === 'health_tips') {
             switch(lastInput) {
               case '1':
-                response = `END Maternal Health Tips\n\n• Take prenatal vitamins daily\n• Attend all prenatal checkups\n• Eat nutritious foods\n• Stay hydrated\n• Get adequate rest\n• Avoid alcohol & smoking\n\nFor more info, call:\n+1-800-HEALTH`;
+                response = `END Maternal Health Tips\n\n• Take prenatal vitamins daily\n• Attend all prenatal checkups\n• Eat nutritious foods\n• Stay hydrated\n• Get adequate rest\n• Avoid alcohol & smoking\n\nFor more info, call:\n+232 44 444 419`;
                 delete sessions[sessionId]; // End session
                 break;
               case '2':
@@ -113,7 +113,7 @@ router.post('/session', (req, res) => {
               case '3':
               case '4':
               case '5':
-                response = `END Content coming soon. Call +1-800-HEALTH for more info.`;
+                response = `END Content coming soon. Call +232 44 444 419 for more info.`;
                 delete sessions[sessionId]; // End session
                 break;
               case '0':
@@ -127,7 +127,7 @@ router.post('/session', (req, res) => {
           } else if (session.data.service === 'check_appointments') {
             switch(lastInput) {
               case '1':
-                response = `END Dr. Smith - General Medicine\n\nDate: January 15, 2024\nTime: 2:00 PM - 2:30 PM\nType: Video Consultation\nStatus: Confirmed\n\nTo reschedule, call:\n+1-800-HEALTH`;
+                response = `END Dr. Smith - General Medicine\n\nDate: January 15, 2024\nTime: 2:00 PM - 2:30 PM\nType: Video Consultation\nStatus: Confirmed\n\nTo reschedule, call:\n+232 44 444 419`;
                 delete sessions[sessionId]; // End session
                 break;
               case '2':
@@ -147,7 +147,7 @@ router.post('/session', (req, res) => {
               response = `CON Welcome to TeleHealth Platform\n\n1. Book Appointment\n2. Health Tips\n3. Emergency Contact\n4. Check Appointments\n5. Register New User\n\n0. Exit`;
               session.step = 1;
             } else {
-              response = `END Booking appointment...\nPlease call +1-800-HEALTH\nto complete booking.`;
+              response = `END Booking appointment...\nPlease call +232 44 444 419\nto complete booking.`;
               delete sessions[sessionId]; // End session
             }
           }
