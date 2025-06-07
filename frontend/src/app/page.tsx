@@ -182,9 +182,12 @@ export default function Home() {
                 <div>*123*3# - Emergency Contact</div>
                 <div>*123*4# - Check Appointments</div>
               </div>
-              <button className="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition-colors">
+              <Link 
+                href="/ussd"
+                className="bg-pink-600 text-white px-6 py-2 rounded-lg hover:bg-pink-700 transition-colors inline-block text-center"
+              >
                 Simulate USSD
-              </button>
+              </Link>
             </div>
           </div>
         </div>

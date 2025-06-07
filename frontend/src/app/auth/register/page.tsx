@@ -42,53 +42,78 @@ export default function Register() {
     })
   }
 
+  /**
+   * Handle form submission - bypasses backend authentication for demo purposes
+   * Validates basic form fields and redirects directly to appropriate dashboard
+   */
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError('')
 
-    // Validation
-    if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match')
+    // Basic validation for required fields
+    if (!formData.name.trim()) {
+      setError('Full name is required')
       setLoading(false)
       return
     }
 
-    if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters long')
+    if (!formData.email.trim()) {
+      setError('Email is required')
+      setLoading(false)
+      return
+    }
+
+    if (!formData.phone.trim()) {
+      setError('Phone number is required')
+      setLoading(false)
+      return
+    }
+
+    if (!formData.location.trim()) {
+      setError('Location is required')
+      setLoading(false)
+      return
+    }
+
+    // Doctor-specific validation
+    if (formData.role === 'doctor' && !formData.specialization) {
+      setError('Specialization is required for doctors')
       setLoading(false)
       return
     }
 
     try {
-      const registrationData = {
+      // Create mock user data for demo purposes
+      const mockUserData = {
+        id: Date.now().toString(),
         name: formData.name,
         email: formData.email,
-        password: formData.password,
         role: formData.role,
         phone: formData.phone,
         location: formData.location,
         ...(formData.role === 'doctor' && {
           specialization: formData.specialization,
           bio: formData.bio,
-          consultationFee: parseFloat(formData.consultationFee) || 0
+          consultationFee: parseFloat(formData.consultationFee) || 50
         })
       }
 
-      const response = await axios.post('http://localhost:4000/api/auth/register', registrationData)
+      // Store mock user data in localStorage for demo
+      localStorage.setItem('user', JSON.stringify(mockUserData))
+      localStorage.setItem('token', 'demo-token-' + Date.now())
       
-      // Store token in localStorage
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('user', JSON.stringify(response.data.user))
+      // Simulate loading delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 1000))
       
       // Redirect based on user role
-      if (response.data.user.role === 'doctor') {
-        router.push('/dashboard/doctor')
+      if (formData.role === 'doctor') {
+        router.push('/doctor-dashboard')
       } else {
-        router.push('/dashboard/patient')
+        router.push('/patient-dashboard')
       }
     } catch (error: any) {
-      setError(error.response?.data?.msg || error.response?.data?.message || 'Registration failed. Please try again.')
+      setError('Registration failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -177,7 +202,7 @@ export default function Register() {
                   required
                   value={formData.name}
                   onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -196,7 +221,7 @@ export default function Register() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                   placeholder="Enter your email"
                 />
               </div>
@@ -214,7 +239,7 @@ export default function Register() {
                   required
                   value={formData.phone}
                   onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                   placeholder="Enter your phone number"
                 />
               </div>
@@ -232,7 +257,7 @@ export default function Register() {
                   required
                   value={formData.location}
                   onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                   placeholder="Enter your location"
                 />
               </div>
@@ -252,7 +277,7 @@ export default function Register() {
                       required
                       value={formData.specialization}
                       onChange={handleChange}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                     >
                       <option value="">Select your specialization</option>
                       {specializations.map((spec) => (
@@ -277,7 +302,7 @@ export default function Register() {
                       step="0.01"
                       value={formData.consultationFee}
                       onChange={handleChange}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                       placeholder="Enter consultation fee"
                     />
                   </div>
@@ -294,7 +319,7 @@ export default function Register() {
                       rows={3}
                       value={formData.bio}
                       onChange={handleChange}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                       placeholder="Tell us about your experience and qualifications"
                     />
                   </div>
@@ -315,7 +340,7 @@ export default function Register() {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                   placeholder="Create a password"
                 />
                 <button
@@ -345,7 +370,7 @@ export default function Register() {
                   required
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+                  className="appearance-none block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm text-gray-900"
                   placeholder="Confirm your password"
                 />
                 <button
