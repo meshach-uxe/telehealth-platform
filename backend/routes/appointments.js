@@ -7,12 +7,22 @@ const twilio = require('twilio');
 
 // Initialize Twilio client conditionally
 let twilioClient = null;
-if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
+const twilioSid = process.env.TWILIO_ACCOUNT_SID;
+const twilioToken = process.env.TWILIO_AUTH_TOKEN;
+
+// Only initialize Twilio if valid credentials are provided
+if (twilioSid && twilioToken && 
+    twilioSid !== 'disabled' && twilioSid !== 'your_twilio_account_sid' &&
+    twilioToken !== 'disabled' && twilioToken !== 'your_twilio_auth_token' &&
+    twilioSid.startsWith('AC')) {
   try {
-    twilioClient = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
+    twilioClient = twilio(twilioSid, twilioToken);
+    console.log('✅ Twilio initialized successfully');
   } catch (error) {
-    console.warn('Twilio initialization failed:', error.message);
+    console.warn('⚠️ Twilio initialization failed:', error.message);
   }
+} else {
+  console.log('ℹ️ Twilio disabled - SMS features unavailable (set valid TWILIO_ACCOUNT_SID and TWILIO_AUTH_TOKEN to enable)');
 }
 
 // @route   POST api/appointments

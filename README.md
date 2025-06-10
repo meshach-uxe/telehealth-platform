@@ -110,6 +110,80 @@ telehealth-platform/
 └── README.md
 ```
 
+## Getting Started
+
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB (optional - see setup options below)
+- npm or yarn
+
+### Quick Setup (Windows)
+
+**Option 1: Automated Setup**
+```cmd
+setup-windows.bat
+```
+This script will check prerequisites and guide you through the setup process.
+
+**Option 2: Manual Setup**
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd telehealth-platform
+```
+
+2. Install backend dependencies:
+```bash
+cd backend
+npm install
+```
+
+3. Install frontend dependencies:
+```bash
+cd ../frontend
+npm install
+```
+
+4. Set up environment variables:
+```bash
+cd ../backend
+copy .env.example .env
+# The .env file is pre-configured with safe defaults
+```
+
+5. **Database Setup (Choose One):**
+   - **Local MongoDB:** Follow [MongoDB Setup Guide](./MONGODB_SETUP_GUIDE.md)
+   - **MongoDB Atlas:** Use cloud database (recommended for beginners)
+   - **No Database:** App will run with limited functionality
+
+6. Start the development servers:
+
+**Backend:**
+```bash
+cd backend
+npm run dev
+```
+
+**Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+
+The application will be available at `http://localhost:3000`
+
+### 🔧 Troubleshooting
+
+If you encounter issues, check the [Troubleshooting Guide](./TROUBLESHOOTING.md) for solutions to common problems.
+
+### ✅ What's Fixed
+
+- **Twilio Errors:** No more initialization failures with placeholder credentials
+- **CORS Issues:** Frontend and backend URLs properly configured
+- **Environment Setup:** Safe defaults that won't cause crashes
+- **Error Handling:** Graceful degradation when services are unavailable
+
 ## Installation
 
 ### Prerequisites
